@@ -1,0 +1,35 @@
+swagger: '2.0'
+info:
+  title: Вакансии и Резюме Совместимость API
+  version: '1.0'
+paths:
+  /compatibility:
+    post:
+      summary: Оценка совместимости вакансии и резюме
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: input_data
+          description: "Текст описания вакансии и резюме"
+          required: true
+          schema:
+            type: object
+            properties:
+              vacancy_description:
+                type: string
+                description: "Текст описания вакансии"
+              resume_description:
+                type: string
+                description: "Текст описания резюме"
+      responses:
+        200:
+          description: "Успешный запрос"
+          schema:
+            type: object
+            properties:
+              compatibility_score:
+                type: number
+                description: "Численная оценка совместимости"
