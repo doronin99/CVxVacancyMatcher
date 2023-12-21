@@ -42,3 +42,9 @@ The text-based service for the matching of job descriptions and CVs for enhanced
 ### keyBERT
 
 [Ноутбук](./experiments/keywords.ipynb)
+
+### BERTopic
+
+[Ноутбук](./experiments/berttopic.ipynb)
+
+Получилось неплохо предсказать подходящие резюме для вакансии
