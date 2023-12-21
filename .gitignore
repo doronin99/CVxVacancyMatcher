@@ -159,8 +159,20 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-data
+!data
+data/**
+
+venv
 
 experiments/models
-experiments/topic_model
 experiments/topic_model_pytorch
+experiments/topic_model
+
+!data
+data/**
+
+venv
+
+experiments/models
+experiments/topic_model_pytorch
+experiments/topic_model
