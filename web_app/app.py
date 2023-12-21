@@ -2,28 +2,49 @@ import streamlit as st
 import requests
 
 
-def get_compatibility_score(vacancy_description, resume_description):
-    api_url = "http://localhost:8000/compatibility"
-    payload = {"vacancy_description": vacancy_description, "resume_description": resume_description}
+def get_cv(vacancy_description):
+    api_url = "http://localhost:8080/get_resumes"
+    payload = {"text": vacancy_description}
     response = requests.post(api_url, json=payload)
 
     if response.status_code == 200:
-        return response.json()["compatibility_score"]
+        return response.text
+    else:
+        st.error(f"Error: {response.status_code}")
+        return None
+    
+
+def get_vaccancy(resume_description):
+    api_url = "http://localhost:8080/get_vaccancies"
+    payload = {"text": resume_description}
+    response = requests.post(api_url, json=payload)
+
+    if response.status_code == 200:
+        return response.text
     else:
         st.error(f"Error: {response.status_code}")
         return None
 
 
 def main():
-    st.title("Vacancy-Resume Compatibility Checker")
+    st.title("Подбор вакансий/резюме")
 
-    vacancy_description = st.text_area("Enter Vacancy Description:")
-    resume_description = st.text_area("Enter Resume Description:")
+    cv_or_vac = st.sidebar.selectbox('Что вы ищите', ('Резюме', 'Вакансия'))
 
-    if st.button("Check Compatibility"):
-        compatibility_score = get_compatibility_score(vacancy_description, resume_description)
-        if compatibility_score is not None:
-            st.success(f"Compatibility Score: {compatibility_score}")
+    if cv_or_vac == "Резюме":
+        vacancy_description = st.text_area("Введите вашу вакансию:")
+        if st.button("Подобрать резюме"):
+            result = get_cv(vacancy_description)
+            if result is not None:
+                st.text(result)
+    elif cv_or_vac == "Вакансия":
+        resume_description = st.text_area("Введите ваше резюме:")
+        if st.button("Подобрать вакансию"):
+            result = get_vaccancy(resume_description)
+            if result is not None:
+                st.text(result)
+    else:
+        st.text("Выберите, что вы ищите")
 
 
 if __name__ == "__main__":
