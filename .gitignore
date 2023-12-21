@@ -167,12 +167,3 @@ venv
 experiments/models
 experiments/topic_model_pytorch
 experiments/topic_model
-
-!data
-data/**
-
-venv
-
-experiments/models
-experiments/topic_model_pytorch
-experiments/topic_model
