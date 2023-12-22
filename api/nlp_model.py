@@ -20,7 +20,6 @@ def predict_cv(vaccancy_text: str, model, df_cv: pd.DataFrame):
     vaccancy_embedding = model.encode(vaccancy_text)
 
     for index, row in df_cv.iterrows():
-        print(type(row["tiny_embedding"]))
         tiny_sims[index] = cosine_similarity([vaccancy_embedding, string_to_array(row["tiny_embedding"])])[0][1]
     
     tiny_sims = {k: v for k, v in sorted(tiny_sims.items(), key=lambda item: item[1], reverse=True)}
