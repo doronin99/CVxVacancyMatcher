@@ -167,3 +167,5 @@ venv
 experiments/models
 experiments/topic_model_pytorch
 experiments/topic_model
+experiments/topic_model_for_cv
+experiments/topic_model_for_vac
