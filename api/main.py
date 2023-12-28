@@ -16,6 +16,9 @@ async def lifespan(app: FastAPI):
     global model
     model = SentenceTransformer('cointegrated/rubert-tiny2')
 
+    global model_cv
+    model_cv = SentenceTransformer('sentence-transformers/paraphrase-multilingual-mpnet-base-v2')
+
     global df_cv
     df_cv = pd.read_csv("../data/datasets_with_embeddings/cv.csv")
     
@@ -33,7 +36,7 @@ async def get_resumes(request: Request):
     request = json.loads((await request.body()).decode())
     vaccancy = request["text"]
 
-    cvs = predict_cv(vaccancy, model, df_cv)
+    cvs = predict_cv(vaccancy, model_cv, df_cv)
 
     return Response(cvs, media_type='text/plain')
 
